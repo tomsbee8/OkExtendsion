@@ -1,2 +1,2 @@
 # OkExtendsion
-A cllection of kotlin extend functions ,which improve android development efficiency
+快速提高效率的常见Kotlin 扩展函数集
