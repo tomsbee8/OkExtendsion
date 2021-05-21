@@ -52,38 +52,21 @@ inline fun String?.ifNotBlank(block: (String) -> Unit) {
 /**
  * url拼接参数
  */
-fun String?.appendParams(params: String?): String {
-    return params?.takeIf { it.isNotBlank() }?.let {
-        if (this.orEmpty().contains('?')) "${this.orEmpty()}&$params" else "${this.orEmpty()}?$params"
-    } ?: this.orEmpty()
-}
-
-/**
- * 获取url的params并且拼接参数
- */
-fun String?.obtainParams(missingAppendParams: String = ""): String {
-    return this?.run {
-        val index = indexOf('?')
-        return if (index == -1) missingAppendParams else "${substring(index + 1, length)}&$missingAppendParams"
-    } ?: missingAppendParams
-}
-
-/**
- * 截取url "?"后的参数
- */
-fun String?.subStringParams(): String {
+fun String?.appendQueryParameter(key: String, value : String?): String {
     return this?.let {
-        if (indexOf('?') > 0) {
-            substring(indexOf('?'))
-        } else ""
-    } ?: ""
+        if (this.contains('?')) {
+            "${this}&${key}=${value.orEmpty()}"
+        } else{
+            "${this}?${key}=${value.orEmpty()}"
+        }
+    } ?: this.orEmpty()
 }
 
 
 /**
  * 获取url中的某个参数
  */
-fun String?.getParameterValue(key : String): String? {
+fun String?.getQueryParameterValue(key : String): String? {
     return Uri.parse(this.orEmpty())?.getQueryParameter(key)
 }
 
